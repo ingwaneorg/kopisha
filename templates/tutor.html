@@ -17,11 +17,22 @@
 
     <div class="section">
       <div class="row">
+        <textarea id="links-input"
+                  rows="3"
+                  placeholder="Links (one URL per line)..."
+                  style="width: 100%; resize: vertical; font-family: monospace; font-size: large;">{{ '\n'.join(clip.links) }}</textarea>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <div class="section">
+      <div class="row">
         <textarea id="clip-input"
                   rows="6"
                   maxlength="1000"
                   placeholder="Paste your text here..."
-                  style="width: 100%; resize: vertical; font-family: monospace; font-size: large;">{{ clip }}</textarea>
+                  style="width: 100%; resize: vertical; font-family: monospace; font-size: large;">{{ clip.text }}</textarea>
       </div>
     </div>
 
@@ -52,12 +63,14 @@
 const tutorPath = window.location.pathname;
 
 function publishClip() {
-    const clip = document.getElementById('clip-input').value.trim();
+    const text = document.getElementById('clip-input').value.trim();
+    const linksRaw = document.getElementById('links-input').value;
+    const links = linksRaw.split('\n').map(l => l.trim()).filter(l => l.length > 0);
 
     fetch(tutorPath, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ clip: clip })
+        body: JSON.stringify({ text: text, links: links })
     })
     .then(response => response.json())
     .then(data => {
@@ -73,6 +86,7 @@ function publishClip() {
 
 function clearClip() {
     document.getElementById('clip-input').value = '';
+    document.getElementById('links-input').value = '';
     publishClip();
 }
 </script>
