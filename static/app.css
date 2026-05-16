@@ -1,0 +1,268 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1 {
+  margin: 0;
+}
+
+.tutor .learner {
+  cursor: pointer;
+  user-select: none;
+}
+
+button {
+  cursor: pointer;
+  padding: 5px;
+  font-size: large;
+  white-space: nowrap;
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 15px;
+  user-select: none;
+  line-height: 1.75;
+}
+
+button:focus, input:focus {
+  outline: 0;
+}
+
+button.button1 {
+  background-color: lightgreen;
+}
+
+button.button2 {
+  background-color:lightpink;
+}
+
+button.button3 {
+  background-color: darkseagreen;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.panel {
+  padding: 20px;
+  border: 2px solid black;
+  background-color: #e8e8e8;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  min-height: 15em;
+  min-width: 650px;
+}
+
+.tutor .panel, .settings .panel {
+  background-color: white;  
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.left {
+  justify-content: flex-start;
+}
+
+.col-gap {
+  width: 10px;
+  display: inline-block;
+  flex: none;
+}
+
+.col-gap-small {
+  width: 5px;
+  display: inline-block;
+  flex: none;
+}
+
+.section-gap {
+  height: 25px;
+  display: block;
+  flex: none;
+}
+
+.row-gap {
+  height: 10px;
+  display: block;
+  flex: none;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.row1 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-align: left;
+}
+
+.row2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.row4 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 5px;
+}
+
+.row5 input[type=text] {
+    width: 50%;
+    font-size: 1.1em;
+    font-family: monospace;
+    text-align: left;
+    border-radius: 0;
+    background-color: field;
+    margin: 0em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    padding: 4px;
+    white-space: pre-wrap;    
+}
+
+div.status {
+  font-size: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 6rem;
+}
+
+td.status {
+  text-align: right;
+}
+
+.row button {
+  -ms-flex: 1 1 0%1;
+  flex: 1 1 0%;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 5px;
+  font-size: large;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 15px;
+  /* line-height: 1.75; */
+}
+
+.intro input[type=text] {
+  font-size: x-large;
+}
+
+.time-message {
+  color: gray;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead, tfoot {
+  font-style: italic;
+  font-weight: bold;
+}
+
+td {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-top: 1px solid lightslategray;
+  border-bottom: 1px solid lightslategray;
+}
+
+.inactive {
+  opacity: 50%;
+}
+
+/* Message styling for incident response app */
+.message-container {
+  margin-bottom: 15px; 
+  padding: 12px; 
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-message {
+  border-left: 4px solid #4ecdc4;
+  background-color: #f0fffe;
+}
+
+.system-message {
+  border-left: 4px solid #ff6b6b;
+  background-color: #fff5f5;
+}
+
+.message-header {
+  font-weight: bold; 
+  font-size: 0.9em; 
+  margin-bottom: 6px;
+}
+
+.team-message .message-header {
+  color: #4ecdc4;
+}
+
+.system-message .message-header {
+  color: #ff6b6b;
+}
+
+.message-text {
+  line-height: 1.4; 
+  color: #333;
+  white-space: pre-line;  /* preserve line breaks */
+}
+
+.my-message {
+  border-left: 4px solid #2196f3;  /* Blue */
+  background-color: #f3f8ff;
+}
+
+.message-recipient {
+  font-weight: bold; 
+  font-size: 0.9em; 
+  margin-bottom: 6px;
+}
+
+/* Mobile devices */
+@media only screen and (max-width: 420px) {
+  .main {
+    width: 100%;
+  }
+
+  .panel {
+    min-width: 100px;
+    width: 100%;
+  }
+}

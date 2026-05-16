@@ -1,0 +1,79 @@
+<!-- templates/tutor.html -->
+{% extends "base.html" %}
+
+{% block title %}Kopisha - Tutor{% endblock %}
+
+{% block content %}
+<div class="main">
+  <div class="panel">
+
+    <div class="section">
+      <div class="row3">
+        <h1>Tutor ~ Copy & Paste</h1>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <div class="section">
+      <div class="row">
+        <textarea id="clip-input"
+                  rows="6"
+                  maxlength="1000"
+                  placeholder="Paste your text here..."
+                  style="width: 100%; resize: vertical; font-family: monospace; font-size: large;">{{ clip }}</textarea>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <div class="section">
+      <div class="row">
+        <button onclick="publishClip()" class="button1">Publish</button>
+        <span class="col-gap"></span>
+        <button onclick="clearClip()" class="button2">Clear</button>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <div class="section">
+      <div class="row3">
+        <div id="status-message" class="time-message">&nbsp;</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const tutorPath = window.location.pathname;
+
+function publishClip() {
+    const clip = document.getElementById('clip-input').value.trim();
+
+    fetch(tutorPath, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clip: clip })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('status-message').textContent =
+                `Published at ${new Date().toLocaleTimeString()}`;
+        }
+    })
+    .catch(error => {
+        document.getElementById('status-message').textContent = 'Publish failed - try again';
+    });
+}
+
+function clearClip() {
+    document.getElementById('clip-input').value = '';
+    publishClip();
+}
+</script>
+{% endblock %}

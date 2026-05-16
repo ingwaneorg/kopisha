@@ -1,0 +1,74 @@
+<!-- templates/learner.html -->
+{% extends "base.html" %}
+
+{% block title %}Copy & Paste{% endblock %}
+
+{% block content %}
+<div class="main">
+  <div class="panel">
+
+    <div class="section">
+      <div class="row3">
+        <h1>Copy & Paste</h1>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <div class="section">
+      <div class="row">
+        <textarea id="clip-display" 
+                  rows="5" 
+                  readonly
+                  style="width: 100%; overflow: hidden; font-family: monospace; font-size: large; ; resize: vertical;">{{ clip }}</textarea>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <div class="section">
+      <div class="row">
+        <button onclick="refreshClip()" class="button1">Refresh</button>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <div class="section">
+      <div class="row3">
+        <div id="status-message" class="time-message">&nbsp;</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = el.scrollHeight + 'px';
+}
+
+function refreshClip() {
+    fetch('/clip')
+    .then(response => response.json())
+    .then(data => {
+        const el = document.getElementById('clip-display');
+        el.value = data.clip;
+        autoResize(el);
+        document.getElementById('status-message').textContent = 
+            `Refreshed at ${new Date().toLocaleTimeString()}`;
+    })
+    .catch(error => {
+        document.getElementById('status-message').textContent = 'Refresh failed - try again';
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const el = document.getElementById('clip-display');
+    autoResize(el);
+});
+</script>
+{% endblock %}
