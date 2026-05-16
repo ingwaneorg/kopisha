@@ -15,16 +15,25 @@
 
     <div class="section-gap"></div>
 
-    <div class="section">
-      <div class="row">
-        <textarea id="clip-display" 
-                  rows="5" 
-                  readonly
-                  style="width: 100%; overflow: hidden; font-family: monospace; font-size: large; ; resize: vertical;">{{ clip }}</textarea>
+    <div id="links-section" class="section" {% if not clip.links %}style="display:none"{% endif %}>
+      <div class="row1" style="flex-direction: column; align-items: flex-start; gap: 6px;">
+        {% for link in clip.links %}
+        <a href="{{ link }}" target="_blank" rel="noopener noreferrer"
+           style="font-family: monospace; font-size: large; word-break: break-all;">{{ link }}</a>
+        {% endfor %}
       </div>
+      <div class="section-gap"></div>
     </div>
 
-    <div class="section-gap"></div>
+    <div id="text-section" class="section" {% if not clip.text %}style="display:none"{% endif %}>
+      <div class="row">
+        <textarea id="clip-display"
+                  rows="5"
+                  readonly
+                  style="width: 100%; overflow: hidden; font-family: monospace; font-size: large; resize: vertical;">{{ clip.text }}</textarea>
+      </div>
+      <div class="section-gap"></div>
+    </div>
 
     <div class="section">
       <div class="row">
@@ -51,14 +60,43 @@ function autoResize(el) {
     el.style.height = el.scrollHeight + 'px';
 }
 
+function renderLinks(links) {
+    const section = document.getElementById('links-section');
+    const container = section.querySelector('.row1');
+    container.innerHTML = '';
+    if (links && links.length > 0) {
+        links.forEach(url => {
+            const a = document.createElement('a');
+            a.href = url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = url;
+            a.style.cssText = 'font-family: monospace; font-size: large; word-break: break-all;';
+            container.appendChild(a);
+        });
+        section.style.display = '';
+    } else {
+        section.style.display = 'none';
+    }
+}
+
 function refreshClip() {
     fetch('/clip')
     .then(response => response.json())
     .then(data => {
+        renderLinks(data.links);
+
         const el = document.getElementById('clip-display');
-        el.value = data.clip;
-        autoResize(el);
-        document.getElementById('status-message').textContent = 
+        const textSection = document.getElementById('text-section');
+        el.value = data.text;
+        if (data.text) {
+            textSection.style.display = '';
+            autoResize(el);
+        } else {
+            textSection.style.display = 'none';
+        }
+
+        document.getElementById('status-message').textContent =
             `Refreshed at ${new Date().toLocaleTimeString()}`;
     })
     .catch(error => {

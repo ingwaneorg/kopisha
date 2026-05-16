@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'fallback-for-development')
 
 # The entire "database"
-current_clip = ""
+current_clip = {'text': '', 'links': []}
 
 # Tutor path from environment variable
 TUTOR_PATH = os.environ.get('TUTOR_PATH', 'paste-dev')
@@ -27,7 +27,7 @@ def health():
 
 @app.route('/clip')
 def get_clip():
-    return jsonify({'clip': current_clip})
+    return jsonify(current_clip)
 
 @app.route('/<path:tutor_path>', methods=['GET'])
 def tutor(tutor_path):
@@ -41,7 +41,11 @@ def publish(tutor_path):
         return "Not found", 404
     global current_clip
     data = request.get_json()
-    current_clip = data.get('clip', '').strip()[:1000]
+    raw_links = data.get('links', [])
+    current_clip = {
+        'text': data.get('text', '').strip()[:1000],
+        'links': [l.strip() for l in raw_links if l.strip()][:20],
+    }
     return jsonify({'success': True})
 
 if __name__ == '__main__':
