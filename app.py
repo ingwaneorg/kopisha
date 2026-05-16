@@ -15,7 +15,7 @@ TUTOR_PATH = os.environ.get('TUTOR_PATH', 'paste-dev')
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', version=__version__)
 
 @app.route('/vm')
 def learner():
