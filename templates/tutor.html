@@ -1,59 +1,44 @@
-<!-- templates/tutor.html -->
 {% extends "base.html" %}
 
 {% block title %}Kopisha - Tutor{% endblock %}
 
 {% block content %}
-<div class="main">
-  <div class="panel">
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
 
-    <div class="section">
-      <div class="row3">
-        <h1>Tutor ~ Copy & Paste</h1>
+      <h3 class="mb-3">Tutor ~ Copy &amp; Paste</h3>
+
+      <div class="card">
+        <div class="card-body bg-body-tertiary">
+
+          <div class="mb-3">
+            <textarea id="links-input"
+                      class="form-control font-monospace"
+                      rows="3"
+                      placeholder="Links (one URL per line)...">{{ '\n'.join(clip.links) }}</textarea>
+          </div>
+
+          <div class="mb-3">
+            <textarea id="clip-input"
+                      class="form-control font-monospace"
+                      rows="6"
+                      maxlength="1000"
+                      placeholder="Paste your text here...">{{ clip.text }}</textarea>
+          </div>
+
+          <div class="d-flex gap-2 mb-3">
+            <button onclick="publishClip()" class="btn btn-success flex-fill">Publish</button>
+            <button onclick="clearClip()" class="btn btn-danger flex-fill">Clear</button>
+          </div>
+
+          <div class="text-center">
+            <small id="status-message" class="text-muted">&nbsp;</small>
+          </div>
+
+        </div>
       </div>
     </div>
-
-    <div class="section-gap"></div>
-
-    <div class="section">
-      <div class="row">
-        <textarea id="links-input"
-                  rows="3"
-                  placeholder="Links (one URL per line)..."
-                  style="width: 100%; resize: vertical; font-family: monospace; font-size: large;">{{ '\n'.join(clip.links) }}</textarea>
-      </div>
-    </div>
-
-    <div class="section-gap"></div>
-
-    <div class="section">
-      <div class="row">
-        <textarea id="clip-input"
-                  rows="6"
-                  maxlength="1000"
-                  placeholder="Paste your text here..."
-                  style="width: 100%; resize: vertical; font-family: monospace; font-size: large;">{{ clip.text }}</textarea>
-      </div>
-    </div>
-
-    <div class="section-gap"></div>
-
-    <div class="section">
-      <div class="row">
-        <button onclick="publishClip()" class="button1">Publish</button>
-        <span class="col-gap"></span>
-        <button onclick="clearClip()" class="button2">Clear</button>
-      </div>
-    </div>
-
-    <div class="section-gap"></div>
-
-    <div class="section">
-      <div class="row3">
-        <div id="status-message" class="time-message">&nbsp;</div>
-      </div>
-    </div>
-
   </div>
 </div>
 {% endblock %}

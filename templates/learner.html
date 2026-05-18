@@ -1,54 +1,53 @@
-<!-- templates/learner.html -->
 {% extends "base.html" %}
 
-{% block title %}Copy & Paste{% endblock %}
+{% block title %}Copy &amp; Paste{% endblock %}
 
 {% block content %}
-<div class="main">
-  <div class="panel">
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
 
-    <div class="section">
-      <div class="row3">
-        <h1>Copy & Paste</h1>
+      <h3 class="mb-3">Copy &amp; Paste</h3>
+
+      <div class="card">
+        <div class="card-body bg-body-tertiary">
+
+          <div id="links-section" {% if not clip.links %}class="d-none"{% endif %}>
+            <div class="d-flex flex-column gap-2 mb-3">
+              {% for link in clip.links %}
+              <a href="{{ link }}" target="_blank" rel="noopener noreferrer"
+                 class="font-monospace text-break">{{ link }}</a>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div id="text-section" {% if not clip.text %}class="d-none"{% endif %}>
+            <div class="mb-3">
+              <textarea id="clip-display"
+                        class="form-control font-monospace"
+                        rows="5"
+                        readonly>{{ clip.text }}</textarea>
+            </div>
+          </div>
+
+          <div>
+            <button onclick="refreshClip()" class="btn btn-success w-100">Refresh</button>
+          </div>
+
+        </div>
       </div>
-    </div>
 
-    <div class="section-gap"></div>
-
-    <div id="links-section" class="section" {% if not clip.links %}style="display:none"{% endif %}>
-      <div class="row1" style="flex-direction: column; align-items: flex-start; gap: 6px;">
-        {% for link in clip.links %}
-        <a href="{{ link }}" target="_blank" rel="noopener noreferrer"
-           style="font-family: monospace; font-size: large; word-break: break-all;">{{ link }}</a>
-        {% endfor %}
+      <!-- Toast -->
+      <div class="toast-container mt-3">
+        <div id="refresh-toast" class="toast align-items-center border-0" role="alert" aria-live="polite" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body" id="toast-message"></div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
       </div>
-      <div class="section-gap"></div>
+
     </div>
-
-    <div id="text-section" class="section" {% if not clip.text %}style="display:none"{% endif %}>
-      <div class="row">
-        <textarea id="clip-display"
-                  rows="5"
-                  readonly
-                  style="width: 100%; overflow: hidden; font-family: monospace; font-size: large; resize: vertical;">{{ clip.text }}</textarea>
-      </div>
-      <div class="section-gap"></div>
-    </div>
-
-    <div class="section">
-      <div class="row">
-        <button onclick="refreshClip()" class="button1">Refresh</button>
-      </div>
-    </div>
-
-    <div class="section-gap"></div>
-
-    <div class="section">
-      <div class="row3">
-        <div id="status-message" class="time-message">&nbsp;</div>
-      </div>
-    </div>
-
   </div>
 </div>
 {% endblock %}
@@ -60,9 +59,21 @@ function autoResize(el) {
     el.style.height = el.scrollHeight + 'px';
 }
 
+function showToast(message, success) {
+    const toastEl = document.getElementById('refresh-toast');
+    document.getElementById('toast-message').textContent = message;
+    toastEl.classList.remove('text-white', 'bg-success', 'bg-danger');
+    if (success) {
+        toastEl.classList.add('text-white', 'bg-success');
+    } else {
+        toastEl.classList.add('text-white', 'bg-danger');
+    }
+    bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 3000 }).show();
+}
+
 function renderLinks(links) {
     const section = document.getElementById('links-section');
-    const container = section.querySelector('.row1');
+    const container = section.querySelector('.d-flex');
     container.innerHTML = '';
     if (links && links.length > 0) {
         links.forEach(url => {
@@ -71,12 +82,12 @@ function renderLinks(links) {
             a.target = '_blank';
             a.rel = 'noopener noreferrer';
             a.textContent = url;
-            a.style.cssText = 'font-family: monospace; font-size: large; word-break: break-all;';
+            a.className = 'font-monospace text-break';
             container.appendChild(a);
         });
-        section.style.display = '';
+        section.classList.remove('d-none');
     } else {
-        section.style.display = 'none';
+        section.classList.add('d-none');
     }
 }
 
@@ -90,23 +101,23 @@ function refreshClip() {
         const textSection = document.getElementById('text-section');
         el.value = data.text;
         if (data.text) {
-            textSection.style.display = '';
+            textSection.classList.remove('d-none');
             autoResize(el);
         } else {
-            textSection.style.display = 'none';
+            textSection.classList.add('d-none');
         }
 
-        document.getElementById('status-message').textContent =
-            `Refreshed at ${new Date().toLocaleTimeString()}`;
+        showToast(`Updated at ${new Date().toLocaleTimeString()}`, true);
     })
     .catch(error => {
-        document.getElementById('status-message').textContent = 'Refresh failed - try again';
+        showToast('Refresh failed — try again', false);
     });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     const el = document.getElementById('clip-display');
-    autoResize(el);
+    if (el) autoResize(el);
+    refreshClip();
 });
 </script>
 {% endblock %}

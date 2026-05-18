@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Copy & Paste{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
 </head>
-<body>
+<body class="bg-body">
     {% block content %}{% endblock %}
+    <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

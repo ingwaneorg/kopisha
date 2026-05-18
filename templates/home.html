@@ -3,39 +3,23 @@
 {% block title %}Kopisha{% endblock %}
 
 {% block content %}
-<div class="main" style="margin-top: 60px;">
-  <div class="panel">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
 
-    <div class="section">
-      <div class="row3">
-        <h1>Kopisha</h1>
+      <div class="text-center mb-4">
+        <h1 class="display-4 mb-2">Kopisha</h1>
+        <p class="lead text-muted">Clipboard relay for online training sessions.</p>
       </div>
-    </div>
 
-    <div class="section-gap"></div>
-
-    <div class="section">
-      <div class="row3">
-        Clipboard relay for online training sessions.
+      <div class="card">
+        <div class="card-body bg-body-tertiary text-center">
+          <p class="text-muted mb-1">If you're a learner, your tutor will give you the correct link.</p>
+          <small class="text-muted">v{{ version }}</small>
+        </div>
       </div>
+
     </div>
-
-    <div class="section-gap"></div>
-
-    <div class="section">
-      <div class="row3">
-        <span class="time-message">If you're a learner, your tutor will give you the correct link.</span>
-      </div>
-    </div>
-
-    <div class="section-gap"></div>
-
-    <div class="section">
-      <div class="row3">
-        <span class="time-message">v{{ version }}</span>
-      </div>
-    </div>
-
   </div>
 </div>
 {% endblock %}
