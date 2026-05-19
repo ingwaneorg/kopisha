@@ -47,7 +47,7 @@ python app.py
 ## Deployment
 
 ```bash
-./deploy.sh
+./bin/deploy.sh
 ```
 
 Deploys to Google Cloud Run. Requires:
