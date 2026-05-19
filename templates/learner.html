@@ -15,8 +15,15 @@
           <div id="links-section" {% if not clip.links %}class="d-none"{% endif %}>
             <div class="d-flex flex-column gap-2 mb-3">
               {% for link in clip.links %}
-              <a href="{{ link }}" target="_blank" rel="noopener noreferrer"
-                 class="font-monospace text-break">{{ link }}</a>
+                {% if '|' in link %}
+                  {% set parts = link.split('|', 1) %}
+                  <div class="font-monospace text-break">
+                    <span>{{ parts[0] }}</span> <a href="{{ parts[1] }}" target="_blank" rel="noopener noreferrer">{{ parts[1] }}</a>
+                  </div>
+                {% else %}
+                  <a href="{{ link }}" target="_blank" rel="noopener noreferrer"
+                     class="font-monospace text-break">{{ link }}</a>
+                {% endif %}
               {% endfor %}
             </div>
           </div>
@@ -25,7 +32,7 @@
             <div class="mb-3">
               <textarea id="clip-display"
                         class="form-control font-monospace"
-                        rows="5"
+                        rows="2"
                         readonly>{{ clip.text }}</textarea>
             </div>
           </div>
@@ -76,14 +83,34 @@ function renderLinks(links) {
     const container = section.querySelector('.d-flex');
     container.innerHTML = '';
     if (links && links.length > 0) {
-        links.forEach(url => {
-            const a = document.createElement('a');
-            a.href = url;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            a.textContent = url;
-            a.className = 'font-monospace text-break';
-            container.appendChild(a);
+        links.forEach(raw => {
+            const pipeIdx = raw.indexOf('|');
+            if (pipeIdx !== -1) {
+                const label = raw.slice(0, pipeIdx);
+                const url = raw.slice(pipeIdx + 1);
+                const div = document.createElement('div');
+                div.className = 'font-monospace text-break';
+                if (label) {
+                    const span = document.createElement('span');
+                    span.textContent = label + ' ';
+                    div.appendChild(span);
+                }
+                const a = document.createElement('a');
+                a.href = url;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.textContent = url;
+                div.appendChild(a);
+                container.appendChild(div);
+            } else {
+                const a = document.createElement('a');
+                a.href = raw;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.textContent = raw;
+                a.className = 'font-monospace text-break';
+                container.appendChild(a);
+            }
         });
         section.classList.remove('d-none');
     } else {
