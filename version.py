@@ -1,7 +1,10 @@
 # version.py
-__version__ = "0.3.3"
+__version__ = "0.3.4"
 
 # Changelog
+
+# [0.4.0] - 2026-05-19
+# Learner route moved from /vm to /
 
 # [0.3.3] - 2026-05-19
 # Set learner intial box height to 2 lines
