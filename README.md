@@ -14,7 +14,7 @@ can retrieve it on demand - avoiding copy/paste issues with VM environments.
 - Click Clear to blank the learner screen
 
 ### Learner
-- Visit `paste.qaalabs.com`
+- Visit `paste.qaalabs.com/qa`
 - Click Refresh to get the latest text
 - Select all and copy into your VM
 
@@ -22,7 +22,8 @@ can retrieve it on demand - avoiding copy/paste issues with VM environments.
 
 | Route | Who | What |
 |---|---|---|
-| `/` | Learner | Shows current clip |
+| `/` | Anyone | Home / landing page |
+| `/qa` | Learner | Shows current clip |
 | `/clip` | Learner JS | Returns current clip as JSON |
 | `/{TUTOR_PATH}` | Tutor | Paste and publish |
 | `/health` | Anyone | Service health and version |
