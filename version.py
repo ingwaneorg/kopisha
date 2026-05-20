@@ -1,7 +1,10 @@
 # version.py
-__version__ = "0.4.1"
+__version__ = "0.4.2"
 
 # Changelog
+
+# [0.4.2] - 2026-05-20
+# Add version to home page
 
 # [0.4.1] - 2026-05-19
 # Learner route moved from / to /qa
