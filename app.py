@@ -9,6 +9,7 @@ app.secret_key = os.environ.get('SECRET_KEY', 'fallback-for-development')
 
 # The entire "database"
 current_clip = {'text': '', 'links': []}
+visitor_ips = set()
 
 # Tutor path from environment variable
 TUTOR_PATH = os.environ.get('TUTOR_PATH', 'paste-dev')
@@ -31,7 +32,15 @@ def health():
 
 @app.route('/clip')
 def get_clip():
+    global visitor_ips
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    if ip:
+        visitor_ips.add(ip.split(',')[0].strip())
     return jsonify(current_clip)
+
+@app.route('/visitors')
+def get_visitors():
+    return jsonify({'count': len(visitor_ips)})
 
 @app.route('/<path:tutor_path>', methods=['GET'])
 def tutor(tutor_path):
@@ -43,7 +52,8 @@ def tutor(tutor_path):
 def publish(tutor_path):
     if tutor_path != TUTOR_PATH:
         return "Not found", 404
-    global current_clip
+    global current_clip, visitor_ips
+    visitor_ips = set()
     data = request.get_json()
     raw_links = data.get('links', [])
     current_clip = {

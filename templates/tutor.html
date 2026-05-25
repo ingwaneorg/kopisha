@@ -32,8 +32,9 @@
             <button onclick="clearClip()" class="btn btn-danger flex-fill">Clear</button>
           </div>
 
-          <div class="text-center">
+          <div class="d-flex justify-content-between align-items-center">
             <small id="status-message" class="text-muted">&nbsp;</small>
+            <small class="text-muted">Learners connected: <strong id="visitor-count">0</strong></small>
           </div>
 
         </div>
@@ -62,6 +63,7 @@ function publishClip() {
         if (data.success) {
             document.getElementById('status-message').textContent =
                 `Published at ${new Date().toLocaleTimeString()}`;
+            refreshVisitors();
         }
     })
     .catch(error => {
@@ -74,5 +76,17 @@ function clearClip() {
     document.getElementById('links-input').value = '';
     publishClip();
 }
+
+function refreshVisitors() {
+    fetch('/visitors')
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById('visitor-count').textContent = data.count;
+        })
+        .catch(() => {});
+}
+
+refreshVisitors();
+setInterval(refreshVisitors, 10000);
 </script>
 {% endblock %}
