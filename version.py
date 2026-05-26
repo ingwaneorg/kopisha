@@ -1,7 +1,8 @@
 # version.py
-__version__ = "0.4.2"
+__version__ = "0.4.3"
 
-# Changelog
+# [0.4.3] - 2026-05-26
+# add counter to the tutor page with a refresh
 
 # [0.4.2] - 2026-05-20
 # Add version to home page
