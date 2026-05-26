@@ -14,6 +14,9 @@ visitor_ips = set()
 # Tutor path from environment variable
 TUTOR_PATH = os.environ.get('TUTOR_PATH', 'paste-dev')
 
+MAX_CLIP_CHARS = 1000
+MAX_LINKS = 20
+
 @app.route('/')
 def home():
     return render_template('home.html', version=__version__)
@@ -57,8 +60,8 @@ def publish(tutor_path):
     data = request.get_json()
     raw_links = data.get('links', [])
     current_clip = {
-        'text': data.get('text', '').strip()[:1000],
-        'links': [l.strip() for l in raw_links if l.strip()][:20],
+        'text': data.get('text', '').strip()[:MAX_CLIP_CHARS],
+        'links': [l.strip() for l in raw_links if l.strip()][:MAX_LINKS],
     }
     return jsonify({'success': True})
 
