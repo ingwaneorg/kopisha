@@ -1,5 +1,8 @@
 # version.py
-__version__ = "0.4.4"
+__version__ = "0.4.5"
+
+# [0.4.5] - 2026-05-27
+# Replace auto-refresh with manual refresh button on tutor and learner pages; persistent "Last Refresh" status replaces toast on learner
 
 # [0.4.4] - 2026-05-26
 # Add a copy button to the text box
