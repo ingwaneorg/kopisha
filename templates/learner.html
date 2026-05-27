@@ -51,6 +51,10 @@
             <button onclick="refreshClip()" class="btn btn-success w-100">Refresh</button>
           </div>
 
+          <div class="mt-2">
+            <small id="status-message" class="text-muted">&nbsp;</small>
+          </div>
+
         </div>
       </div>
 
@@ -160,10 +164,11 @@ function refreshClip() {
             textSection.classList.add('d-none');
         }
 
-        showToast(`Updated at ${new Date().toLocaleTimeString()}`, true);
+        document.getElementById('status-message').textContent =
+            `Last Refresh: ${new Date().toLocaleTimeString()}`;
     })
     .catch(error => {
-        showToast('Refresh failed — try again', false);
+        document.getElementById('status-message').textContent = 'Refresh failed — try again';
     });
 }
 
