@@ -34,7 +34,10 @@
 
           <div class="d-flex justify-content-between align-items-center">
             <small id="status-message" class="text-muted">&nbsp;</small>
-            <small class="text-muted">Learners connected: <strong id="visitor-count">0</strong></small>
+            <small class="text-muted">
+              Learners connected: <strong id="visitor-count">0</strong>
+              <button onclick="refreshVisitors()" class="btn btn-sm ms-2" style="background-color:#fd7e14;color:#fff;border-color:#fd7e14;" title="Refresh">&#x21bb; Refresh</button>
+            </small>
           </div>
 
         </div>
@@ -87,6 +90,5 @@ function refreshVisitors() {
 }
 
 refreshVisitors();
-setInterval(refreshVisitors, 10000);
 </script>
 {% endblock %}
