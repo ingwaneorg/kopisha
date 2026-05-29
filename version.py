@@ -1,5 +1,8 @@
 # version.py
-__version__ = "0.5.0"
+__version__ = "0.5.1"
+
+# [0.5.1] - 2026-05-29
+# Change TRAINER separator to a pipe
 
 # [0.5.0] - 2026-05-29
 # Multi-trainer support: TRAINERS env var (initials:secret pairs), each trainer gets independent clip and learner path
