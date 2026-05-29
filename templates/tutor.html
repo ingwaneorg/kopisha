@@ -81,7 +81,7 @@ function clearClip() {
 }
 
 function refreshVisitors() {
-    fetch('/visitors')
+    fetch('/visitors/{{ initials }}')
         .then(r => r.json())
         .then(data => {
             document.getElementById('visitor-count').textContent = data.count;

@@ -149,7 +149,7 @@ function copyClip() {
 }
 
 function refreshClip() {
-    fetch('/clip')
+    fetch('/clip/{{ initials }}')
     .then(response => response.json())
     .then(data => {
         renderLinks(data.links);
