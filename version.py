@@ -1,5 +1,8 @@
 # version.py
-__version__ = "0.4.5"
+__version__ = "0.5.0"
+
+# [0.5.0] - 2026-05-29
+# Multi-trainer support: TRAINERS env var (initials:secret pairs), each trainer gets independent clip and learner path
 
 # [0.4.5] - 2026-05-27
 # Replace auto-refresh with manual refresh button on tutor and learner pages; persistent "Last Refresh" status replaces toast on learner
