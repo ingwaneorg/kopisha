@@ -11,7 +11,7 @@ MAX_LINKS = 20
 
 def parse_trainers():
     result = {}
-    for entry in os.environ.get('TRAINERS', 'qa:paste-dev').split(','):
+    for entry in os.environ.get('TRAINERS', 'qa:paste-dev').split('|'):
         entry = entry.strip()
         if ':' in entry:
             initials, secret = entry.split(':', 1)
