@@ -52,7 +52,8 @@ def get_visitors(initials):
 def handle_path(path):
     # Learner view: path matches a trainer's initials
     if path in trainers:
-        return render_template('learner.html', clip=trainers[path]['clip'], initials=path)
+        return render_template('learner.html', clip=trainers[path]['clip'], initials=path,
+                                learner_url=f'{request.host}/{path}')
 
     # Tutor view: path matches a trainer's secret
     for initials, t in trainers.items():

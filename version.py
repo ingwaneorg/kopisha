@@ -1,5 +1,8 @@
 # version.py
-__version__ = "0.5.1"
+__version__ = "0.5.2"
+
+# [0.5.2] - 2026-07-16
+# Show learner URL in large text below the clip box
 
 # [0.5.1] - 2026-05-29
 # Change TRAINER separator to a pipe
