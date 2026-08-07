@@ -1,5 +1,8 @@
 # version.py
-__version__ = "0.5.2"
+__version__ = "0.5.3"
+
+# [0.5.3] - 2026-07-16
+# Make the URL slightly bigger
 
 # [0.5.2] - 2026-07-16
 # Show learner URL in large text below the clip box
@@ -11,7 +14,8 @@ __version__ = "0.5.2"
 # Multi-trainer support: TRAINERS env var (initials:secret pairs), each trainer gets independent clip and learner path
 
 # [0.4.5] - 2026-05-27
-# Replace auto-refresh with manual refresh button on tutor and learner pages; persistent "Last Refresh" status replaces toast on learner
+# Replace auto-refresh with manual refresh button on tutor and learner pages
+# Persistent "Last Refresh" status replaces toast on learner
 
 # [0.4.4] - 2026-05-26
 # Add a copy button to the text box
