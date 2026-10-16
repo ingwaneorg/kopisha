@@ -1,6 +1,8 @@
 # version.py
-__version__ = "0.5.3"
+__version__ = "0.5.4"
 
+# [0.5.4] - 2026-10-16
+# Production trainer list updated (deploy config only)
 # [0.5.3] - 2026-07-16
 # Make the URL slightly bigger
 
