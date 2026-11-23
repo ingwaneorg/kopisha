@@ -1,5 +1,8 @@
 # version.py
-__version__ = "0.5.4"
+__version__ = "0.5.5"
+
+# [0.5.5] - 2026-11-23
+# Widen learner and tutor columns so long lines wrap less
 
 # [0.5.4] - 2026-10-16
 # Production trainer list updated (deploy config only)
